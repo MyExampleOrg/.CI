@@ -37,7 +37,7 @@ jobs:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
       - uses: julia-actions/cache@v1
-      - uses: ./.github/actions/setup-registry@master
+      - uses: MyExampleOrg/.CI/.github/actions/setup-registry@master
         with:
           token: ${{ secrets.token }}
       - uses: julia-actions/julia-buildpkg@v1
