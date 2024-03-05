@@ -1,0 +1,30 @@
+name: Setup registry
+description: Add specified Registry to Julia Environment
+inputs:
+  registry:
+    description: Registry url paths.
+    default: "https://github.com/MyExampleOrg/MyPublicRegistry.git"
+    required: false
+    
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        julia -e '
+          using Pkg;
+          Pkg.instantiate()
+          if !isempty("${{ inputs.localregistry }}")
+            local_repos = split("${{ inputs.localregistry }}", "\n") .|> string
+            for repo_path in local_repos
+              repo_url = "https://${{ inputs.token }}@github.com/$repo_path.git"
+              isempty(repo_url) && continue
+              Pkg.Registry.add(Pkg.RegistrySpec(; url = repo_url))
+            end
+          end
+          Pkg.Registry.update()
+          '
+      shell: bash
+        
+branding:
+  icon: "package"
+  color: "green"
