@@ -1,0 +1,30 @@
+name: Update registry
+on:
+  workflow_call:
+    inputs:
+      registers:
+        description: List of required registers
+        required: true
+        type: string
+      target_registry:
+        description: Reuired registry to update
+        required: true
+        type: string
+    secrets:
+      token:
+        description: Personal access token
+        required: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: MyExampleOrg/.CI/setup-registry@master
+        with:
+          token: ${{ secrets.token }}
+          registers: ${{ inputs.registers }}
+      - uses: MyExampleOrg/.CI/update-registry@master
+        with:
+          token: ${{ secrets.token }}
+          registry: ${{ inputs.target_registry }}
+          
