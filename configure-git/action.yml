@@ -16,4 +16,5 @@ runs:
       sudo apt-get update -qq && sudo apt-get install -y -qq git
       git config --global user.name ${{ inputs.name }}
       git config --global user.email ${{ inputs.email }}
+    shell: bash
       
