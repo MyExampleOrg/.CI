@@ -1,7 +1,17 @@
-name: Tests & Coverage
+name: Documentation
 on:
   workflow_call:
-
+    inputs:
+      registers:
+        description: List of required registers
+        required: false
+        type: string
+        default: "MyExampleOrg/MyPublicRegistry"
+    secrets:
+      token:
+        description: Personal access token
+        required: false
+        
 jobs:
   Documenter:
     permissions:
@@ -11,6 +21,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: MyExampleOrg/.CI/setup-registry@master
+        with:
+          token: ${{ secrets.token }}
+          registers: ${{ inputs.registers }}
       - uses: julia-actions/julia-docdeploy@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
