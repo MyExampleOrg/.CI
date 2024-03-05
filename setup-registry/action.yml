@@ -20,8 +20,8 @@ runs:
           if !isempty("${{ inputs.registers }}")
             local_repos = split("${{ inputs.registers }}", "\n") .|> string
             for repo_path in local_repos
+              isempty(repo_path) && continue
               repo_url = "https://${{ inputs.token }}@github.com/$repo_path.git"
-              isempty(repo_url) && continue
               Pkg.Registry.add(Pkg.RegistrySpec(; url = repo_url))
             end
           end
