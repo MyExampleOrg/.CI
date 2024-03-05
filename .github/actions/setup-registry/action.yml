@@ -3,7 +3,11 @@ description: Add specified Registry to Julia Environment
 inputs:
   registry:
     description: Registry url paths.
-    default: "https://github.com/MyExampleOrg/MyPublicRegistry.git"
+    default: "MyExampleOrg/MyPublicRegistry"
+    required: false
+  token:
+    description: Personal access token.
+    default: ${{ github.token }}
     required: false
     
 runs:
