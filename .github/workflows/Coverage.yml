@@ -6,14 +6,18 @@ on:
         description: List of required registers
         required: false
         type: string
-        default: "https://github.com/MyExampleOrg/MyPublicRegistry.git"
+        default: "MyExampleOrg/MyPublicRegistry"
+    secrets:
+      token:
+        description: Personal access token
+        required: false
 
 jobs:
   test:
     name: Julia ${{ matrix.version }} - ${{ matrix.os }} - ${{ matrix.arch }} - ${{ github.event_name }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
-    permissions: # needed to allow julia-actions/cache to proactively delete old caches that it has created
+    permissions:
       actions: write
       contents: read
     strategy:
@@ -33,9 +37,10 @@ jobs:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
       - uses: julia-actions/cache@v1
-      - uses: julia-actions/julia-buildpkg@v1
+      - uses: .github/actions/setup-registry@master
         with:
-          localregistry: ${{ inputs.registers }}
+          token: ${{}}
+      - uses: julia-actions/julia-buildpkg@v1
       - uses: julia-actions/julia-runtest@v1
       - uses: julia-actions/julia-processcoverage@v1
       - uses: codecov/codecov-action@v3
