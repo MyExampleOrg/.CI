@@ -6,7 +6,7 @@ on:
         description: List of required registers
         required: false
         type: string
-        default: "${{ vars.PUBLIC_REGISTRY_PATH }}"
+        default: ${{ vars.PUBLIC_REGISTRY_PATH }}
     secrets:
       token:
         description: Personal access token
