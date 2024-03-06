@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: setup-registry@master
+      - uses: MyExampleOrg/.CI/setup-registry@master
         with:
           token: ${{ secrets.token }}
           registers: ${{ inputs.registers }}
