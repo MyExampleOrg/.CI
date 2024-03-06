@@ -20,11 +20,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: MyExampleOrg/.CI/configure-git@master
-      - uses: MyExampleOrg/.CI/.CI/setup-registry@master
+      - uses: MyExampleOrg/.CI/setup-registry@master
         with:
           token: ${{ secrets.token }}
           registers: ${{ inputs.registers }}
-      - uses: MyExampleOrg/.CI/.CI/update-registry@master
+      - uses: MyExampleOrg/.CI/update-registry@master
         with:
           token: ${{ secrets.token }}
           registry: ${{ inputs.target_registry }}
